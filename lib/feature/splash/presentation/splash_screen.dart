@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_templete/app.dart';
+import 'package:flutter_templete/core/navigation/route_names.dart';
 import 'package:flutter_templete/feature/splash/presentation/splash_view_model.dart';
 import 'package:flutter_templete/widgets/alert_dialog.dart';
 import 'package:go_router/go_router.dart';
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
           },
           onGranted: () async {
             Future.delayed(const Duration(seconds: 1),() {
-              context.go('/button');
+              context.go(RouteNames.resumeEditor);
             });
           },
           onPermanentlyDenied: () async {

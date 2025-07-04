@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> 템플릿1 ( 자기소개서 ) </title>
+</head>
+<style>
+    #container {
+        display: flex;
+        min-height: 100vh;
+        align-items: stretch; /* 기본 */
+    }
+
+    #sidebar, #main-content {
+        height: 100%; /* 부모 높이에 꽉 차게 */
+    }
+</style>
+<body>
+<div id="container">
+    <div id="sidebar">
+        <div id="profile-image"></div>
+        <div id="name-section">
+            <h1 id="name"></h1>
+            <p id="intro"></p>
+        </div>
+
+        <div id="underline"></div>
+
+        <div id="profile-icon-container"></div>
+    </div>
+
+    <div id="main-content">
+        <h1 id="big-slime-name">JOO DONG HO</h1>
+
+        <div id="profile-container">
+            <h3 id="profile-name"></h3>
+            <div id="keywords-container"></div>
+            <p id="description">이곳에 본문 설명이 들어갑니다.</p>
+        </div>
+
+        <div id="work-experience-container">
+            <h3 id="work-experience-name"></h3>
+            <div id="work-experience-time-line"></div>
+        </div>
+
+        <div id="character-container">
+            <h3 id="character-name"></h3>
+            <div id="character-item-container"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--기본 템플릿-->
+<script src="./profile_style_init.js"></script>
+<script src="./profile_style_controller.js"></script>
+<script src="./profile_style_actions.js"></script>

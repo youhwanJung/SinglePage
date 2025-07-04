@@ -5,4 +5,9 @@ class RouteNames {
   static const String alertDialog = '/alert_dialog';
   static const String serverCall = '/server_call';
   static const String detail = '/detail';
+
+
+
+  ///본판
+  static const String resumeEditor = '/resume_editor'; ///자기소개 작성 화면 Route
 } 

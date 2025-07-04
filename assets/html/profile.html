@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title> 템플릿1 ( 자기소개서 ) </title>
+</head>
+<body>
+<div id="container">
+    <div id="sidebar">
+        <div id="profile-image"></div>
+        <div id="name-section">
+            <h1 id="name"></h1>
+            <p id="intro"></p>
+        </div>
+
+        <div id="underline"></div>
+
+        <div id="profile-icon-container"></div>
+    </div>
+
+    <div id="main-content">
+        <h1 id="big-slime-name">JOO DONG HO</h1>
+
+        <div id="profile-container">
+            <h3 id="profile-name"></h3>
+            <div id="keywords-container"></div>
+            <p id="description">이곳에 본문 설명이 들어갑니다.</p>
+        </div>
+
+        <div id="work-experience-container">
+            <h3 id="work-experience-name"></h3>
+            <div id="work-experience-time-line"></div>
+        </div>
+
+        <div id="character-container">
+            <h3 id="character-name"></h3>
+            <div id="character-item-container"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    // 전체 body 스타일
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.body.style.backgroundColor = "#ffffff";
+    document.body.style.fontFamily = "sans-serif";
+
+    /**
+     * 가운데 정렬 영역
+     */
+    const container = document.getElementById("container");
+    container.style.width = "794px";              // 고정 너비
+    container.style.margin = "0 auto";            // 가운데 정렬
+    container.style.display = "flex";             // 가로 배치
+    // container 높이 고정 -> 최소 높이로 변경
+    container.style.minHeight = "100vh";
+    container.style.height = "auto";      // 내용에 따라 늘어나도록
+    container.style.alignItems = "stretch";
+
+    container.style.boxShadow = "0 0 10px rgba(0,0,0,0.1)";
+    container.style.backgroundColor = "#ffffff";
+
+    /**
+     * 사이드 바 영역
+     */
+    const sidebar = document.getElementById("sidebar");
+    sidebar.style.width = "35%";                   // 컨테이너 내부 35%
+    sidebar.style.backgroundColor = "#69a4dc";
+    sidebar.style.padding = "20px";
+    sidebar.style.boxSizing = "border-box";
+    sidebar.style.height = "100%";
+
+    /**
+     * 본문 영역
+     */
+    const main = document.getElementById("main-content");
+    main.style.width = "65%";                      // 컨테이너 내부 65% (35% + 65% = 100%)
+    main.style.height = "100%";                     // container 높이만큼
+    main.style.overflowY = "auto";                  // 세로 스크롤 가능
+    main.style.padding = "20px";
+    main.style.boxSizing = "border-box";
+    main.style.backgroundColor = "#ffffff";
+    main.style.height = "auto";
+    main.style.overflowY = "visible"; // 스크롤 숨김 (기본)
+
+    /**
+     * 프로필 이미지 영역
+     */
+    const imageUrl = 'https://pimg.mk.co.kr/news/cms/202405/13/news-p.v1.20240513.600eef8d5aef488888eef2974e856d62_P1.jpg';
+    const profileImageContainer = document.getElementById('profile-image');
+    profileImageContainer.style.width = '150px';
+    profileImageContainer.style.height = '150px';
+    profileImageContainer.style.borderRadius = '50%';
+    profileImageContainer.style.overflow = 'hidden';
+    profileImageContainer.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+    profileImageContainer.style.margin = '50px auto 0 auto';
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = '프로필 이미지';
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.display = 'block';
+    img.style.margin = '0 auto';
+    img.style.objectFit = 'cover';
+    img.style.objectPosition = 'center 15%';
+
+    profileImageContainer.appendChild(img);
+
+    /**
+     * 이름 및 한줄 소개 영역
+     */
+    const nameEl = document.getElementById('name');
+    nameEl.textContent = '노정의';
+    nameEl.style.color = '#ffffff';
+    nameEl.style.textAlign = 'center';
+    nameEl.style.margin = '10px 0 0 0';
+    nameEl.style.fontSize = '24px';
+    nameEl.style.border = 'none';
+
+    const introEl = document.getElementById('intro');
+    introEl.textContent = '망고보도 서포터즈.';
+    introEl.style.color = 'rgba(255, 255, 255, 0.8)';
+    introEl.style.textAlign = 'center';
+    introEl.style.fontSize = '16px';
+    introEl.style.margin = '4px 0 0 0';
+
+    const sectionEl = document.getElementById('name-section');
+    sectionEl.style.padding = '20px';
+
+    /**
+     * 밑줄 영역
+     */
+    const underline = document.getElementById('underline');
+    underline.style.height = '2px';
+    underline.style.width = '100%';
+    underline.style.margin = '10px auto 10px';
+    underline.style.borderBottomStyle = 'dotted';
+    underline.style.borderBottomWidth = '2px';
+    underline.style.borderBottomColor = '#ffffff';
+
+    /**
+     * 프로필 영역
+     */
+    const items = [
+        {icon: '../icon/social_zip/icons8-phone-50.png', description: '010-1234-1234'},
+        {icon: '../icon/social_zip/icons8-git-50-2.png', description: 'https://github.com/JOODON'},
+        {icon: '../icon/social_zip/icons8-notion-50.png', description: 'https://www.notion.com/'},
+        {icon: '../icon/social_zip/icons8-youtube-logo-48.png', description: 'https://www.youtube.com/'},
+    ];
+
+    const profileIconContainer = document.getElementById('profile-icon-container');
+
+    profileIconContainer.style.display = 'flex';
+    profileIconContainer.style.flexDirection = 'row';
+    profileIconContainer.style.flexWrap = 'wrap';
+    profileIconContainer.style.justifyContent = 'space-evenly';
+    profileIconContainer.style.alignItems = 'center';
+    profileIconContainer.style.maxHeight = "80vh";
+    profileIconContainer.style.height = '100%';
+
+    items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.style.display = 'flex';
+        itemDiv.style.flexDirection = 'column';
+        itemDiv.style.alignItems = 'center';
+        itemDiv.style.margin = '10px 15px';
+
+        const circleDiv = document.createElement('div');
+        circleDiv.style.width = '96px';
+        circleDiv.style.height = '96px';
+        circleDiv.style.borderRadius = '50%';
+        circleDiv.style.backgroundColor = 'rgb(241,244,246)';
+        circleDiv.style.display = 'flex';
+        circleDiv.style.justifyContent = 'center';
+        circleDiv.style.alignItems = 'center';
+        circleDiv.style.boxShadow = '0 2px 6px rgba(0,0,0,0.3)';
+        circleDiv.style.marginBottom = '12px';
+
+        const iconImg = document.createElement('img');
+        iconImg.src = item.icon;
+        iconImg.style.width = '48px';
+        iconImg.style.height = '48px';
+        iconImg.style.borderRadius = '50%';
+        iconImg.style.objectFit = 'cover';
+
+        circleDiv.appendChild(iconImg);
+
+        const descDiv = document.createElement('div');
+        descDiv.textContent = item.description;
+        descDiv.style.fontSize = '14px';
+        descDiv.style.color = '#ffffff';
+        descDiv.style.textAlign = 'center';
+        itemDiv.appendChild(circleDiv);
+        itemDiv.appendChild(descDiv);
+
+        profileIconContainer.appendChild(itemDiv);
+    });
+
+    /**
+     * 큰 이름이지만 슬림한 이름
+     */
+    const bigSlimeName = document.getElementById("big-slime-name");
+    bigSlimeName.textContent = "Jung-Eui No";
+
+    // 이름 요소 스타일 설정
+    bigSlimeName.style.fontWeight = "300"; // 슬림
+    bigSlimeName.style.fontSize = "48px";
+    bigSlimeName.style.color = "#afd4ff";
+    bigSlimeName.style.width = "100%";
+    bigSlimeName.style.textAlign = "center";
+    bigSlimeName.style.letterSpacing = "2px";
+
+    /**
+     * 프로필 영역
+     */
+    const profileName = document.getElementById("profile-name");
+
+    // 컨테이너 스타일
+    profileName.textContent = "PROFILE";
+    profileName.style.border = "1px solid #ccc";
+    profileName.style.borderRadius = "30px";
+    profileName.style.padding = "10px";
+    profileName.style.width = "90%";
+    profileName.style.color = "#afd4ff";
+    profileName.style.fontWeight = "bold"; // bold 키워드도 가능
+    profileName.style.backgroundColor = "#ffffff";
+    profileName.style.textAlign = "center";
+    profileName.style.border = "2px solid #afd4ff"; // 파란색 2px 테두리
+    profileName.style.marginLeft = "auto";
+    profileName.style.marginRight = "auto";
+
+    const keywordsContainer = document.getElementById("keywords-container");
+
+    keywordsContainer.style.display = "flex";
+    keywordsContainer.style.flexWrap = "wrap"; // 줄 바꿈 허용
+    keywordsContainer.style.width = "90%";
+    keywordsContainer.style.gap = "12px";
+    keywordsContainer.style.justifyContent = "flex-start";
+    keywordsContainer.style.marginLeft = "auto";
+    keywordsContainer.style.marginRight = "auto";
+
+    const keywords = ["나를 설명하는 키워드 1", "나를 설명하는 키워드 2", "나를 설명하는 키워드3"];
+
+    keywords.forEach(keyword => {
+        const kwDiv = document.createElement("div");
+        kwDiv.style.flex = "0 0 48%";  // 2개씩 한 줄
+        kwDiv.style.display = "flex";
+        kwDiv.style.alignItems = "center";
+        kwDiv.style.gap = "8px";
+        kwDiv.style.color = "#afd4ff";
+        kwDiv.style.fontWeight = "500";
+        kwDiv.style.justifyContent = "center";  // ← 여기에 추가해서 내부 아이템 가로 중앙 정렬
+
+        // 빈 원 (테두리만)
+        const circle = document.createElement("span");
+        circle.style.display = "inline-block";
+        circle.style.width = "6px";
+        circle.style.height = "6px";
+        circle.style.border = "2px solid #afd4ff"; // 테두리만
+        circle.style.borderRadius = "50%";
+        circle.style.verticalAlign = "middle";
+        circle.style.position = "relative";
+        circle.style.top = "-2px";  // 위로 2px 올림 (값은 필요에 따라 조절)
+        // 텍스트
+        const text = document.createElement("span");
+        text.textContent = keyword;
+
+        kwDiv.appendChild(circle);
+        kwDiv.appendChild(text);
+
+        keywordsContainer.appendChild(kwDiv);
+    });
+
+    const description = document.getElementById("description");
+    description.style.width = "90%";
+    description.style.whiteSpace = "normal";
+    description.style.marginTop = "15px";
+    description.style.marginLeft = "auto";
+    description.style.marginRight = "auto";
+    description.style.color = "#999999"; // 연한 회색
+    description.style.fontWeight = "400";
+    description.style.lineHeight = "1.6";  // 줄 간격 부드럽게
+
+    description.textContent = "자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,자연스럽고 담백한 느낌으로,";
+
+    const workExperienceName = document.getElementById("work-experience-name");
+
+    // 컨테이너 스타일
+    workExperienceName.textContent = "WORK EXPERIENCE";
+    workExperienceName.style.border = "1px solid #ccc";
+    workExperienceName.style.borderRadius = "30px";
+    workExperienceName.style.padding = "10px";
+    workExperienceName.style.width = "90%";
+    workExperienceName.style.color = "#afd4ff";
+    workExperienceName.style.fontWeight = "bold"; // bold 키워드도 가능
+    workExperienceName.style.backgroundColor = "#ffffff";
+    workExperienceName.style.textAlign = "center";
+    workExperienceName.style.border = "2px solid #afd4ff"; // 파란색 2px 테두리
+    workExperienceName.style.marginLeft = "auto";
+    workExperienceName.style.marginRight = "auto";
+
+    const workExperienceList = [
+        {
+            start: "2012-06",
+            end: "2012-07",
+            title: "프로젝트 혹은 경력사항 첫 번째",
+            description: "기획·디자인을 맡아 해당 경력사항을 수행하였습니다.<br>경력사항에 관한 텍스트를 입력해주세요."
+        },
+        {
+            start: "2013-10",
+            end: "2013-11",
+            title: "프로젝트 혹은 경력사항 두 번째",
+            description: "기획·디자인을 맡아 해당 경력사항을 수행하였습니다.<br>경력사항에 관한 텍스트를 입력해주세요."
+        },
+        {
+            start: "2013-12",
+            end: "2014-01",
+            title: "프로젝트 혹은 경력사항 세 번째",
+            description: "기획·디자인을 맡아 해당 경력사항을 수행하였습니다.<br>경력사항에 관한 텍스트를 입력해주세요."
+        }
+    ];
+
+    const workExperienceTimeLine = document.getElementById("work-experience-time-line");
+    workExperienceTimeLine.style.width = "85%"
+    workExperienceTimeLine.style.marginLeft = "auto";
+    workExperienceTimeLine.style.marginRight = "auto";
+
+    workExperienceTimeLine.style.position = "relative";
+    workExperienceTimeLine.style.borderLeft = "2px dotted #ccc";
+    workExperienceTimeLine.style.paddingLeft = "20px";
+
+    workExperienceList.forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.style.position = "relative";
+        itemDiv.style.marginBottom = "40px";
+
+
+        // 날짜
+        const dateDiv = document.createElement("div");
+        dateDiv.innerText = `${item.start} ~ ${item.end}`;
+        dateDiv.style.color = "#5bb1ec";
+        dateDiv.style.fontWeight = "bold";
+        dateDiv.style.fontSize = "14px";
+        dateDiv.style.marginBottom = "5px";
+
+        // 제목
+        const titleDiv = document.createElement("div");
+        titleDiv.innerText = item.title;
+        titleDiv.style.fontWeight = "bold";
+        titleDiv.style.fontSize = "16px";
+        titleDiv.style.marginBottom = "5px";
+
+        // 설명
+        const descriptionDiv = document.createElement("div");
+        descriptionDiv.innerHTML = item.description;
+        descriptionDiv.style.color = "#999999";
+        descriptionDiv.style.fontSize = "14px";
+        descriptionDiv.style.lineHeight = "1.4";
+
+        // 조립
+        // itemDiv.appendChild(marker);
+        itemDiv.appendChild(dateDiv);
+        itemDiv.appendChild(titleDiv);
+        itemDiv.appendChild(descriptionDiv);
+        workExperienceTimeLine.appendChild(itemDiv);
+    });
+
+    const characterName = document.getElementById("character-name");
+
+    // 컨테이너 스타일
+    characterName.textContent = "CHARACTER";
+    characterName.style.border = "1px solid #ccc";
+    characterName.style.borderRadius = "30px";
+    characterName.style.padding = "10px";
+    characterName.style.width = "90%";
+    characterName.style.color = "#afd4ff";
+    characterName.style.fontWeight = "bold"; // bold 키워드도 가능
+    characterName.style.backgroundColor = "#ffffff";
+    characterName.style.textAlign = "center";
+    characterName.style.border = "2px solid #afd4ff"; // 파란색 2px 테두리
+    characterName.style.marginLeft = "auto";
+    characterName.style.marginRight = "auto";
+
+    const characterData = [
+        {
+            icon: "https://cdn-icons-png.flaticon.com/512/223/223404.png",
+            title: "책임감과 끈기",
+            subtitle: "포기를 모르는",
+            color: "#5bb1ec"
+        },
+        {
+            icon: "https://cdn-icons-png.flaticon.com/512/223/223404.png",
+            title: "긍정적 에너지",
+            subtitle: "언제나 밝은",
+            color: "#89c9f1"
+        },
+        {
+            icon: "https://cdn-icons-png.flaticon.com/512/223/223404.png",
+            title: "무한한 열정",
+            subtitle: "지치지 않는",
+            color: "#b2dcf6"
+        }
+    ];
+
+    const characterItemContainer = document.getElementById("character-item-container");
+
+    // container 스타일 적용
+    characterItemContainer.style.display = "flex";
+    characterItemContainer.style.justifyContent = "center";
+    characterItemContainer.style.gap = "40px";
+    characterItemContainer.style.marginTop = "20px";
+
+    characterData.forEach((item) => {
+        const wrapperDiv = document.createElement("div");
+        wrapperDiv.style.display = "flex";
+        wrapperDiv.style.flexDirection = "column";
+        wrapperDiv.style.alignItems = "center";
+        wrapperDiv.style.textAlign = "center";
+
+        // 원형 아이콘 영역
+        const circleDiv = document.createElement("div");
+        circleDiv.style.width = "100px";
+        circleDiv.style.height = "100px";
+        circleDiv.style.borderRadius = "50%";
+        circleDiv.style.backgroundColor = item.color;
+        circleDiv.style.display = "flex";
+        circleDiv.style.alignItems = "center";
+        circleDiv.style.justifyContent = "center";
+        circleDiv.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)";
+        circleDiv.style.marginBottom = "10px";
+        const darkerBorderColor = darkenColor(item.color, 0.1);
+        circleDiv.style.border = `2px solid ${darkerBorderColor}`;
+
+        // 아이콘 이미지 생성
+        const iconImg = document.createElement("img");
+        iconImg.src = item.icon;
+        iconImg.alt = item.title + " 아이콘";
+        iconImg.style.width = "84px";
+        iconImg.style.height = "84px";
+        iconImg.style.borderRadius = "50%";  // 필요하면 조절
+        iconImg.style.objectFit = "cover";
+        iconImg.style.objectPosition = 'center 20%';
+
+        circleDiv.appendChild(iconImg);
+
+        // 제목
+        const title = document.createElement("div");
+        title.textContent = item.title;
+        title.style.fontSize = "14px";
+        title.style.fontWeight = "bold";
+        title.style.color = "#333";
+        title.style.marginBottom = "4px";
+
+        // 설명
+        const subtitle = document.createElement("div");
+        subtitle.textContent = item.subtitle;
+        subtitle.style.fontSize = "12px";
+        subtitle.style.color = "#777";
+
+        // 조립
+        wrapperDiv.appendChild(circleDiv);
+        wrapperDiv.appendChild(title);
+        wrapperDiv.appendChild(subtitle);
+        characterItemContainer.appendChild(wrapperDiv);
+    });
+
+    window.addEventListener('load', () => {
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main-content');
+        const mainHeight = main.offsetHeight;
+        sidebar.style.height = mainHeight + 'px';
+    });
+
+    function darkenColor(color, amount = 0.2) {
+        // color가 #RRGGBB 형식이라고 가정
+        let r = parseInt(color.slice(1, 3), 16);
+        let g = parseInt(color.slice(3, 5), 16);
+        let b = parseInt(color.slice(5, 7), 16);
+
+        r = Math.max(0, Math.min(255, Math.floor(r * (1 - amount))));
+        g = Math.max(0, Math.min(255, Math.floor(g * (1 - amount))));
+        b = Math.max(0, Math.min(255, Math.floor(b * (1 - amount))));
+
+        return `#${r.toString(16).padStart(2, "0")}${g
+            .toString(16)
+            .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+    }
+</script>

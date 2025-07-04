@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_templete/core/utils/result.dart';
 import 'package:flutter_templete/feature/server_call/domain/use_case/server_post_example_use_case.dart';
 import 'package:injectable/injectable.dart';
 import '../domain/use_case/server_get_example_use_case.dart';

@@ -26,6 +26,11 @@ dependencies:
   flutter_svg: ^2.0.9 # svg 이용 라이브러리
   flutter_localization: ^0.2.0
   path: any
+  flutter_html: ^3.0.0-beta.2 #html 파일 띄우기
+  webview_flutter: ^4.10.0 #flutter에서 웹뷰 띄우기
+  webview_flutter_android: ^4.3.2 #Android에서 웹뷰 띄우기
+
+
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +44,10 @@ flutter:
   assets: # 사진 추가
     - assets/images/logo.png
     - assets/icons/bold-clock.svg
+
+
+    - assets/html/profile.html
+    - assets/html/profile_one.html
 
   fonts: # 폰트 추가
     - family: NotoSans
