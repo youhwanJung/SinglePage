@@ -50,6 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           onGranted: () async {
             Future.delayed(const Duration(seconds: 1),() {
               context.go(RouteNames.resumeEditor);
+              //context.go(RouteNames.testResumeEditor);
             });
           },
           onPermanentlyDenied: () async {

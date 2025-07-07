@@ -1,5 +1,6 @@
 import 'package:flutter_templete/core/di/di_setup.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_screen.dart';
+import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_test_screen.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_view_model.dart';
 import 'package:flutter_templete/feature/splash/presentation/splash_screen.dart';
 import 'package:flutter_templete/feature/splash/presentation/splash_view_model.dart';
@@ -37,6 +38,19 @@ class AppRouter {
             return child;
             },
         )
+      ),
+      GoRoute(
+          path: RouteNames.testResumeEditor,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: ChangeNotifierProvider(
+              create: (context) => getIt<ResumeEditorViewModel>(),
+              child: ResumeEditorTestScreen(),
+            ),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+          )
       )
     ]
   );

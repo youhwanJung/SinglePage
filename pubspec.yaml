@@ -48,6 +48,9 @@ flutter:
 
     - assets/html/profile.html
     - assets/html/profile_one.html
+    - assets/html/profile_style_actions.js
+    - assets/html/profile_style_controller.js
+    - assets/html/profile_style_init.js
 
   fonts: # 폰트 추가
     - family: NotoSans

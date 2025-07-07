@@ -6,8 +6,12 @@ class RouteNames {
   static const String serverCall = '/server_call';
   static const String detail = '/detail';
 
+  ///테스트
+  static const String testResumeEditor = "/test_resume_editor";
+
 
 
   ///본판
   static const String resumeEditor = '/resume_editor'; ///자기소개 작성 화면 Route
+
 } 

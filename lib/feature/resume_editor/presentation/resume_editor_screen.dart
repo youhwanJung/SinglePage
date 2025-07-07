@@ -23,7 +23,8 @@ class _ResumeEditorScreenState extends State<ResumeEditorScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final box = _containerKey.currentContext?.findRenderObject() as RenderBox?;
+      final box =
+          _containerKey.currentContext?.findRenderObject() as RenderBox?;
       final width = box?.size.width;
       if (width != null) {
         final vm = context.read<ResumeEditorViewModel>();
@@ -43,30 +44,73 @@ class _ResumeEditorScreenState extends State<ResumeEditorScreen> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
-          key: _containerKey,
-          padding: const EdgeInsets.all(16),
-          child: InteractiveViewer(
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: vm.webViewController == null
-                      ? const Center(child: CircularProgressIndicator())
-                      : WebViewWidget(controller: vm.webViewController!),
-                ),
-                Positioned(
-                  bottom: 16,
-                  right: 16,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      vm.webViewController?.runJavaScript("alert('버튼 눌림');");
-                    },
-                    child: const Text("새로고침"),
+            key: _containerKey,
+            padding: const EdgeInsets.all(16),
+            child: Scrollbar(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: vm.canScroll
+                    ? const ScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
+                /// SingleChildScrollView 와 InteractiveViewer를 같이 쓰기 위한 처절한 노력의 결과
+                child: Listener(
+                  onPointerDown: (event) {
+                    vm.addEvent(event);
+                  },
+                  onPointerUp: (event) {
+                    vm.clearEvents();
+                    vm.setCanScroll(true);
+                  },
+
+                  onPointerMove: (event) {
+                    if (vm.events.length == 2) {
+                      vm.setCanScroll(false);
+                    }
+                  },
+                  child: InteractiveViewer(
+                    child: Container(
+                      width: double.infinity,
+                      height: vm.webViewHeight ??
+                          MediaQuery.of(context).size.height,
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: vm.webViewController == null
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : WebViewWidget(
+                                    controller: vm.webViewController!,
+                                  ),
+                          ),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              double parentWidth = constraints.maxWidth;
+                              return Center(
+                                child: Container(
+                                  width: parentWidth * 0.81,
+                                  color: Colors.red.withOpacity(0.3),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: parentWidth * 0.285,
+                                        height: double.infinity,
+                                        color: Colors.black.withOpacity(0.3),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ],
-            ),
-          )
-        ),
+              ),
+            )),
       ),
     );
   }

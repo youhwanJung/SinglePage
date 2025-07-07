@@ -50,6 +50,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sendHeightToFlutter() {
+        const height = document.body.scrollHeight;
+        if (window.FlutterPostMessageChannel) {
+            window.FlutterPostMessageChannel.postMessage(height.toString());
+        }
+    }
+    window.onload = sendHeightToFlutter;
+    window.onresize = sendHeightToFlutter;
+</script>
+
 </body>
 </html>
 <!--기본 템플릿-->
