@@ -26,11 +26,12 @@ class CaptureResultRepositoryImpl implements ResumeEditorRepository {
       const double contentWidth = 794.0;
       final double initialScale = (width / contentWidth);
 
+      print("initialScale : ${initialScale}");
       /**
        * initial-scale : 페이지가 처음 로드 될 때, 초기확대 / 축소 비율
        */
       final String viewportMeta = '''
-  <meta name="viewport" initial-scale=$initialScale maximum-scale=1.0 minimum-scale=$initialScale user-scalable=yes"> 
+  <meta name="viewport" initial-scale=$initialScale"> 
   ''';
       String modifiedHtml = originalHtml;
       final RegExp viewportRegex = RegExp(r'<meta name="viewport"[^>]*>');

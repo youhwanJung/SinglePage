@@ -53,6 +53,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final networkModule = _$NetworkModule();
     gh.factory<_i662.SplashViewModel>(() => _i662.SplashViewModel());
+    gh.factory<_i630.ResumeEditorViewModel>(
+        () => _i630.ResumeEditorViewModel());
     gh.singleton<_i361.Dio>(() => networkModule.dio());
     gh.singleton<_i1007.ResumeEditorRepository>(
         () => _i967.CaptureResultRepositoryImpl());
@@ -77,10 +79,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i87.ServerCallViewModel>(() => _i87.ServerCallViewModel(
           gh<_i930.ServerPostExampleUseCase>(),
           gh<_i69.ServerGetExampleUseCase>(),
-        ));
-    gh.factory<_i630.ResumeEditorViewModel>(() => _i630.ResumeEditorViewModel(
-          gh<_i957.LoadHtmlFromAssetsUseCase>(),
-          gh<_i570.LoadHtmlFromServerUseCase>(),
         ));
     return this;
   }

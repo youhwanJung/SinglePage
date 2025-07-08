@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_templete/core/color/app_colors.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_view_model.dart';
+import 'package:flutter_templete/feature/resume_editor/presentation/widget/content_section_widget.dart';
+import 'package:flutter_templete/feature/resume_editor/presentation/widget/side_bar_section_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
@@ -17,20 +19,9 @@ class ResumeEditorScreen extends StatefulWidget {
 }
 
 class _ResumeEditorScreenState extends State<ResumeEditorScreen> {
-  final GlobalKey _containerKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final box =
-          _containerKey.currentContext?.findRenderObject() as RenderBox?;
-      final width = box?.size.width;
-      if (width != null) {
-        final vm = context.read<ResumeEditorViewModel>();
-        await vm.loadHtmlFromAssets(width); //Html 파일 Assets 에서 가져오기.
-      }
-    });
   }
 
   @override
@@ -44,73 +35,32 @@ class _ResumeEditorScreenState extends State<ResumeEditorScreen> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         body: Container(
-            key: _containerKey,
-            padding: const EdgeInsets.all(16),
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                physics: vm.canScroll
-                    ? const ScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                /// SingleChildScrollView 와 InteractiveViewer를 같이 쓰기 위한 처절한 노력의 결과
-                child: Listener(
-                  onPointerDown: (event) {
-                    vm.addEvent(event);
-                  },
-                  onPointerUp: (event) {
-                    vm.clearEvents();
-                    vm.setCanScroll(true);
-                  },
-
-                  onPointerMove: (event) {
-                    if (vm.events.length == 2) {
-                      vm.setCanScroll(false);
-                    }
-                  },
-                  child: InteractiveViewer(
+          padding: EdgeInsets.all(12),
+          color: Colors.white,
+          child: InteractiveViewer(
+              constrained: true,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  double width = constraints.maxWidth;
+                  double height = width * 1.414;
+                  return Center(
                     child: Container(
-                      width: double.infinity,
-                      height: vm.webViewHeight ??
-                          MediaQuery.of(context).size.height,
-                      child: Stack(
+                      width: width,
+                      height: height,
+                      color: Colors.blue.withOpacity(0.3),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
-                            child: vm.webViewController == null
-                                ? const Center(
-                                    child: CircularProgressIndicator())
-                                : WebViewWidget(
-                                    controller: vm.webViewController!,
-                                  ),
-                          ),
-                          LayoutBuilder(
-                            builder: (context, constraints) {
-                              double parentWidth = constraints.maxWidth;
-                              return Center(
-                                child: Container(
-                                  width: parentWidth * 0.81,
-                                  color: Colors.red.withOpacity(0.3),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: parentWidth * 0.285,
-                                        height: double.infinity,
-                                        color: Colors.black.withOpacity(0.3),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          SideBarWidget(width: width, height: height,),
+                          ContentSectionWidget(width: width, height: height,),
                         ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-            )),
+                  );
+                },
+              )),
+        ),
       ),
     );
   }

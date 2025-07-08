@@ -29,6 +29,7 @@ dependencies:
   flutter_html: ^3.0.0-beta.2 #html 파일 띄우기
   webview_flutter: ^4.10.0 #flutter에서 웹뷰 띄우기
   webview_flutter_android: ^4.3.2 #Android에서 웹뷰 띄우기
+  dotted_border: ^2.1.0
 
 
 

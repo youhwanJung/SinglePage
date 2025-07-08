@@ -51,6 +51,7 @@ class CustomTextField extends StatefulWidget {
   final double borderWidth;
   final double fontSize;
   final Color fontColor;
+  final FontWeight fontWeight;
   final double horizontalPadding;
   final double verticalPadding;
   final String hintText;
@@ -61,35 +62,36 @@ class CustomTextField extends StatefulWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final double? prefixIconTextFieldSpace;
+  final bool? isTextCenter;
 
-  const CustomTextField({
-    super.key,
-    required this.width,
-    required this.height,
-    required this.fontSize,
-    required this.fontColor,
-    required this.horizontalPadding,
-    required this.verticalPadding,
-    this.borderColor = AppColors.black,
-    this.backgroundColor = AppColors.white,
-    this.borderRadius = 0,
-    this.borderWidth = 0,
-    this.hintText = "",
-    this.hintColor = Colors.grey,
-    this.hintFontSize = 10,
-    this.enabled = true,
-    this.onChanged,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.prefixIconTextFieldSpace
-  });
+  const CustomTextField(
+      {super.key,
+      required this.width,
+      required this.height,
+      required this.fontSize,
+      required this.fontColor,
+      required this.horizontalPadding,
+      required this.verticalPadding,
+      required this.fontWeight,
+      this.borderColor = AppColors.black,
+      this.backgroundColor = AppColors.white,
+      this.borderRadius = 0,
+      this.borderWidth = 0,
+      this.hintText = "",
+      this.hintColor = Colors.grey,
+      this.hintFontSize = 10,
+      this.enabled = true,
+      this.onChanged,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.prefixIconTextFieldSpace,
+      this.isTextCenter = false});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -103,24 +105,29 @@ class _CustomTextFieldState extends State<CustomTextField> {
               horizontal: widget.horizontalPadding,
             ),
             decoration: BoxDecoration(
-                color: widget.backgroundColor,
-                borderRadius: BorderRadius.circular(widget.borderRadius),
-                border: Border.all(
-                  color: widget.borderColor,
-                  width: widget.borderWidth,
-                )
+              color: widget.backgroundColor,
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              border: widget.borderWidth > 0
+                  ? Border.all(
+                      color: widget.borderColor, width: widget.borderWidth)
+                  : null,
             ),
             child: Row(
               children: [
-                if (widget.prefixIcon != null)
-                  ...[
-                    widget.prefixIcon!,
-                    SizedBox(width: widget.prefixIconTextFieldSpace)
-                  ],
+                if (widget.prefixIcon != null) ...[
+                  widget.prefixIcon!,
+                  SizedBox(width: widget.prefixIconTextFieldSpace)
+                ],
                 Expanded(
                   child: TextField(
                     enabled: widget.enabled,
                     onChanged: widget.onChanged,
+                    textAlign: widget.isTextCenter!
+                        ? TextAlign.center
+                        : TextAlign.start,
+                    textAlignVertical: widget.isTextCenter!
+                        ? TextAlignVertical.center
+                        : TextAlignVertical.top,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none,
@@ -134,15 +141,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       ),
                     ),
                     style: TextStyle(
-                        fontSize: widget.fontSize
-                    ),
+                        color: widget.fontColor, fontSize: widget.fontSize, fontWeight: widget.fontWeight),
                   ),
                 ),
-                if (widget.suffixIcon != null)
-                  widget.suffixIcon!,
+                if (widget.suffixIcon != null) widget.suffixIcon!,
               ],
-            )
-        ),
+            )),
       ),
     );
   }

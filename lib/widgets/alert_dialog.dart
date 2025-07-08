@@ -128,61 +128,61 @@ void showLoadingAlertDialog(BuildContext context) {
   );
 }
 
-void showTextFieldAlertDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return CustomTextFieldAlertDialog(
-        titleWidget: Text(
-          '텍스필드 다이어로그입니다.',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        textFieldWidget: CustomTextField(
-          width: 150.w,
-          height: 40.h,
-          borderColor: Colors.black,
-          backgroundColor: Colors.grey[200]!,
-          borderRadius: 4.0.r,
-          borderWidth: 1.0,
-          fontSize: 11.sp,
-          fontColor: Colors.black,
-          horizontalPadding: 8.w,
-          verticalPadding: 8.h,
-          hintText: AppStrings.defaultTextFieldHint,
-          hintColor: AppColors.color666666,
-          hintFontSize: 11.sp,
-          enabled: true,
-          onChanged: (text) {
-            print("입력된 값: $text");
-          },
-        ),
-        messageWidget: Text(
-          '텍스필드 다이어로그입니다.',
-          style: TextStyle(fontSize: 16, color: Colors.black),
-        ),
-
-        buttonWidget: CustomButton(
-          child: Text(
-            "확인",
-            style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold),
-          ),
-          onPressed: () => {Navigator.pop(context)},
-          isDisabled: false,
-          pressedColor: AppColors.buttonPressed,
-          backgroundColor: Colors.grey,
-          disabledColor: Colors.grey.shade400,
-        ),
-        borderColor: AppColors.black,
-        backgroundColor: Colors.white,
-        borderRadius: 8.w,
-        dialogWidth: 0.w,
-        dialogHeight: 270.0.h,
-        dialogPadding: 8.w,
-        icon: Icon(Icons.text_fields, size: 25.0.w, color: AppColors.buttonPressed),
-      );
-    },
-  );
-}
+// void showTextFieldAlertDialog(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return CustomTextFieldAlertDialog(
+//         titleWidget: Text(
+//           '텍스필드 다이어로그입니다.',
+//           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//         ),
+//         textFieldWidget: CustomTextField(
+//           width: 150.w,
+//           height: 40.h,
+//           borderColor: Colors.black,
+//           backgroundColor: Colors.grey[200]!,
+//           borderRadius: 4.0.r,
+//           borderWidth: 1.0,
+//           fontSize: 11.sp,
+//           fontColor: Colors.black,
+//           horizontalPadding: 8.w,
+//           verticalPadding: 8.h,
+//           hintText: AppStrings.defaultTextFieldHint,
+//           hintColor: AppColors.color666666,
+//           hintFontSize: 11.sp,
+//           enabled: true,
+//           onChanged: (text) {
+//             print("입력된 값: $text");
+//           },
+//         ),
+//         messageWidget: Text(
+//           '텍스필드 다이어로그입니다.',
+//           style: TextStyle(fontSize: 16, color: Colors.black),
+//         ),
+//
+//         buttonWidget: CustomButton(
+//           child: Text(
+//             "확인",
+//             style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold),
+//           ),
+//           onPressed: () => {Navigator.pop(context)},
+//           isDisabled: false,
+//           pressedColor: AppColors.buttonPressed,
+//           backgroundColor: Colors.grey,
+//           disabledColor: Colors.grey.shade400,
+//         ),
+//         borderColor: AppColors.black,
+//         backgroundColor: Colors.white,
+//         borderRadius: 8.w,
+//         dialogWidth: 0.w,
+//         dialogHeight: 270.0.h,
+//         dialogPadding: 8.w,
+//         icon: Icon(Icons.text_fields, size: 25.0.w, color: AppColors.buttonPressed),
+//       );
+//     },
+//   );
+// }
 
 
 Future<void> showPermissionDialog(
