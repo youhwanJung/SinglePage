@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class DioConfig {
@@ -8,15 +10,21 @@ class DioConfig {
 
   DioConfig(this._dio) {
     _dio.options = BaseOptions(
-      baseUrl: "https://httpbin.org",
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      baseUrl: 'http://34.64.118.148:18080/hp/api/v1',
+      //baseUrl: 'https://jsonplaceholder.typicode.com',
+      connectTimeout: const Duration(milliseconds: 10000),
+      receiveTimeout: const Duration(milliseconds: 10000),
+      sendTimeout: const Duration(milliseconds: 10000),
     );
 
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
         print("REQUEST: ${options.method} ${options.uri}");
-        options.headers["Authorization"] = "My Token";
+        print("HEADERS: ${options.headers}");
+        print("BODY: ${jsonEncode(options.data)}");
+
+        //options.headers.remove('Authorization');
+
         return handler.next(options);
       },
       onResponse: (response, handler) {
@@ -24,7 +32,7 @@ class DioConfig {
         return handler.next(response);
       },
       onError: (DioException e, handler) {
-        print("ERROR: ${e.message}");
+       // print("ERROR: ${e.response?.data}");
         return handler.next(e);
       }
     ));

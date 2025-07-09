@@ -12,6 +12,7 @@ class RouteNames {
 
 
   ///본판
-  static const String resumeEditor = '/resume_editor'; ///자기소개 작성 화면 Route
-
+  static const String resumeEditor = '/resume_editor';
+  static const String login = "/login";
+  static const String signUp = '/sign_up';
 } 

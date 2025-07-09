@@ -77,7 +77,6 @@ class PermissionDialog extends StatelessWidget {
                   borderRadius: 0,
                   borderColor: AppColors.white,
                   borderWidth: 0,
-                  isShadow: false,
                   width: 60,
                   height: 35,
                   pressedColor: AppColors.buttonWhitePressed,

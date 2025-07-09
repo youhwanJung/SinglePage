@@ -10,7 +10,7 @@ class LoadHtmlFromAssetsUseCase {
     required ResumeEditorRepository resumeEditorRepository,
   }) : _resumeEditorRepository = resumeEditorRepository;
 
-  Future<Result<String>> call({required double width}) async {
+  Future<void> call({required double width}) async {
     return _resumeEditorRepository.loadHtmlFromAssets(width: width);
   }
 }

@@ -43,6 +43,7 @@ import '../core/color/app_colors.dart';
  */
 
 class CustomTextField extends StatefulWidget {
+  final TextEditingController? controller;
   final double width;
   final double height;
   final Color borderColor;
@@ -64,8 +65,9 @@ class CustomTextField extends StatefulWidget {
   final double? prefixIconTextFieldSpace;
   final bool? isTextCenter;
 
-  const CustomTextField(
-      {super.key,
+  const CustomTextField({
+      super.key,
+      this.controller,
       required this.width,
       required this.height,
       required this.fontSize,
@@ -90,6 +92,7 @@ class CustomTextField extends StatefulWidget {
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
+
 
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
@@ -120,6 +123,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ],
                 Expanded(
                   child: TextField(
+                    controller: (widget.controller != null)
+                        ? widget.controller
+                        : TextEditingController(),
                     enabled: widget.enabled,
                     onChanged: widget.onChanged,
                     textAlign: widget.isTextCenter!

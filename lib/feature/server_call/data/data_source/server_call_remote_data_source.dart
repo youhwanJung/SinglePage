@@ -4,6 +4,6 @@ import '../model/response/get_response.dart';
 import '../model/response/post_response.dart';
 
 abstract class ServerCallRemoteDataSource {
-  Future<Result<PostResponse>> serverCallPostExample(PostRequest PostrequestDto);
-  Future<Result<GetResponse>> serverCallGetExample();
+  Future<void> serverCallPostExample(PostRequest PostrequestDto);
+  Future<void> serverCallGetExample();
 }

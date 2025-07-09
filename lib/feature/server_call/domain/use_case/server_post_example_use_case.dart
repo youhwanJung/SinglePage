@@ -12,7 +12,7 @@ class ServerPostExampleUseCase {
     required ServerCallRepository serverCallRepository,
   }) : _serverCallRepository = serverCallRepository;
 
-  Future<Result<Post>> call({required String userName, required int countNum}) async {
+  Future<void> call({required String userName, required int countNum}) async {
     return _serverCallRepository.serverPostExample(userName: userName, countNum: countNum);
   }
 }

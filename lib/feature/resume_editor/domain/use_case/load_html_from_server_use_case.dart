@@ -10,7 +10,7 @@ class LoadHtmlFromServerUseCase {
     required ResumeEditorRepository resumeEditorRepository,
   }) : _resumeEditorRepository = resumeEditorRepository;
 
-  Future<Result<String>> call({required String width}) async {
+  Future<void> call({required String width}) async {
     return _resumeEditorRepository.loadHtmlFromServer();
   }
 }

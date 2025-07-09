@@ -13,7 +13,7 @@ class ServerGetExampleUseCase {
     required ServerCallRepository serverCallRepository,
   }) : _serverCallRepository = serverCallRepository;
 
-  Future<Result<Get>> call() async {
+  Future<void> call() async {
     return _serverCallRepository.serverGetExample();
   }
 }

@@ -14,7 +14,7 @@ class ServerCallRemoteDataSourceImpl implements ServerCallRemoteDataSource {
   ServerCallRemoteDataSourceImpl(DioConfig dioConfig) : _dio = dioConfig.dio;
 
   @override
-  Future<Result<PostResponse>> serverCallPostExample(PostRequest request) async {
+  Future<void> serverCallPostExample(PostRequest request) async {
     try {
       final response = await _dio.post(
           '/post',
@@ -22,18 +22,18 @@ class ServerCallRemoteDataSourceImpl implements ServerCallRemoteDataSource {
       );
       if(response.statusCode == 200) {
         final jsonData = response.data['json'];
-        return Result.success(PostResponse.fromJson(jsonData));
+
 
       } else {
-        return Result.failure("서버 오류 발생: ${response.statusCode}");
+
       }
     } catch (e) {
-      return Result.failure("네트워크 오류: ${e.toString()}");
+
     }
   }
 
   @override
-  Future<Result<GetResponse>> serverCallGetExample() async {
+  Future<void> serverCallGetExample() async {
     try {
       final response = await _dio.get(
         '/get',
@@ -44,12 +44,12 @@ class ServerCallRemoteDataSourceImpl implements ServerCallRemoteDataSource {
       );
       if(response.statusCode == 200) {
         final jsonData = response.data['args'];
-        return Result.success(GetResponse.fromJson(jsonData));
+
       }else {
-        return Result.failure("서버 오류 발생: ${response.statusCode}");
+
       }
     }catch (e) {
-      return Result.failure("네트워크 오류: ${e.toString()}");
+
     }
   }
 }

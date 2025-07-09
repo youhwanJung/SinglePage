@@ -11,6 +11,16 @@
 import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_templete/core/server/dio_config.dart' as _i65;
 import 'package:flutter_templete/core/server/network_module.dart' as _i770;
+import 'package:flutter_templete/feature/auth/data/repository/auth_repository_impl.dart'
+    as _i857;
+import 'package:flutter_templete/feature/auth/domain/repository/auth_repository.dart'
+    as _i102;
+import 'package:flutter_templete/feature/auth/domain/use_case/login_use_case.dart'
+    as _i90;
+import 'package:flutter_templete/feature/auth/domain/use_case/sign_up_use_case.dart'
+    as _i235;
+import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart'
+    as _i5;
 import 'package:flutter_templete/feature/resume_editor/data/repository/resume_editor_repository_impl.dart'
     as _i967;
 import 'package:flutter_templete/feature/resume_editor/domain/repository/resume_editor_repository.dart'
@@ -68,6 +78,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i570.LoadHtmlFromServerUseCase>(() =>
         _i570.LoadHtmlFromServerUseCase(
             resumeEditorRepository: gh<_i1007.ResumeEditorRepository>()));
+    gh.singleton<_i102.AuthRepository>(
+        () => _i857.AuthRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i96.ServerCallRepository>(() => _i34.ServerCallRepositoryImpl(
         serverCallRemoteDataSource: gh<_i15.ServerCallRemoteDataSource>()));
     gh.singleton<_i69.ServerGetExampleUseCase>(() =>
@@ -79,6 +91,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i87.ServerCallViewModel>(() => _i87.ServerCallViewModel(
           gh<_i930.ServerPostExampleUseCase>(),
           gh<_i69.ServerGetExampleUseCase>(),
+        ));
+    gh.singleton<_i235.SignUpUseCase>(
+        () => _i235.SignUpUseCase(authRepository: gh<_i102.AuthRepository>()));
+    gh.singleton<_i90.LoginUseCase>(
+        () => _i90.LoginUseCase(authRepository: gh<_i102.AuthRepository>()));
+    gh.factory<_i5.AuthViewModel>(() => _i5.AuthViewModel(
+          gh<_i235.SignUpUseCase>(),
+          gh<_i90.LoginUseCase>(),
         ));
     return this;
   }

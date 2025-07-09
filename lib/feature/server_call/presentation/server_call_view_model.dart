@@ -30,25 +30,9 @@ class ServerCallViewModel extends ChangeNotifier {
 
   Future<void> serverPostExample() async {
     final response = await _serverPostExampleUseCase.call(userName: "made by youhwan", countNum: _count);
-    if (response.isSuccess) {
-      print("[SUCCESS] Server Call Post");
-      print("Server Call Post : userName : ${response.data?.userName}");
-      print("Server Call Post : countNum : ${response.data?.countNum}");
-    } else {
-      print("[FAILURE] Server Call Post");
-      print("Error: ${response.error}");
-    }
   }
 
   Future<void> serverGetExample() async {
     final response = await _serverGetExampleUseCase.call();
-    if(response.isSuccess) {
-      print("[SUCCESS] Server Call Get");
-      print("Server Call Get : message : ${response.data?.message}");
-      print("Server Call Get : status : ${response.data?.status}");
-    } else {
-      print("[FAILURE] Server Call Get");
-      print("Error: ${response.error}");
-    }
   }
 }

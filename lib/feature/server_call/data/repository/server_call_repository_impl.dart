@@ -18,15 +18,13 @@ class ServerCallRepositoryImpl implements ServerCallRepository {
 }) : _serverCallRemoteDataSource = serverCallRemoteDataSource;
 
   @override
-  Future<Result<Post>> serverPostExample({required String userName, required int countNum}) async {
+  Future<void> serverPostExample({required String userName, required int countNum}) async {
     final PostrequestDto = PostRequest(userName: userName, countNum: countNum);
     final result = await _serverCallRemoteDataSource.serverCallPostExample(PostrequestDto);
-    return result.map(PostMapper.fromResponse);
   }
 
   @override
-  Future<Result<Get>> serverGetExample() async {
+  Future<void> serverGetExample() async {
     final result = await _serverCallRemoteDataSource.serverCallGetExample();
-    return result.map(GetMapper.fromResponse);
   }
 }
