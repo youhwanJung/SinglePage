@@ -30,6 +30,8 @@ dependencies:
   webview_flutter: ^4.10.0 #flutter에서 웹뷰 띄우기
   webview_flutter_android: ^4.3.2 #Android에서 웹뷰 띄우기
   dotted_border: ^2.1.0
+  flutter_secure_storage: ^9.2.4
+  smooth_page_indicator: ^1.1.0 # 양옆 스와이프 라이브러리
 
 
 

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_templete/app.dart';
 import 'package:flutter_templete/core/navigation/route_names.dart';
+import 'package:flutter_templete/core/session/session_manager.dart';
 import 'package:flutter_templete/feature/splash/presentation/splash_view_model.dart';
 import 'package:flutter_templete/widgets/alert_dialog.dart';
 import 'package:go_router/go_router.dart';
@@ -48,8 +49,13 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           },
           onGranted: () async {
-            Future.delayed(const Duration(seconds: 1),() {
-              context.go(RouteNames.login);
+            Future.delayed(const Duration(seconds: 1),() async {
+              final canAuthLogin = await SessionManager.canAutoLogin();
+              if(canAuthLogin) {
+                context.go(RouteNames.login);
+              }else {
+                context.go(RouteNames.checkTemplete);
+              }
             });
           },
           onPermanentlyDenied: () async {

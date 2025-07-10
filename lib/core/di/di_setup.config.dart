@@ -21,6 +21,12 @@ import 'package:flutter_templete/feature/auth/domain/use_case/sign_up_use_case.d
     as _i235;
 import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart'
     as _i5;
+import 'package:flutter_templete/feature/check_templete_screen/data/repository/check_templete_repository_impl.dart'
+    as _i615;
+import 'package:flutter_templete/feature/check_templete_screen/domain/repository/check_templete_repository.dart'
+    as _i355;
+import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_view_model.dart'
+    as _i532;
 import 'package:flutter_templete/feature/resume_editor/data/repository/resume_editor_repository_impl.dart'
     as _i967;
 import 'package:flutter_templete/feature/resume_editor/domain/repository/resume_editor_repository.dart'
@@ -62,6 +68,8 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final networkModule = _$NetworkModule();
+    gh.factory<_i532.CheckTempleteViewModel>(
+        () => _i532.CheckTempleteViewModel());
     gh.factory<_i662.SplashViewModel>(() => _i662.SplashViewModel());
     gh.factory<_i630.ResumeEditorViewModel>(
         () => _i630.ResumeEditorViewModel());
@@ -78,6 +86,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i570.LoadHtmlFromServerUseCase>(() =>
         _i570.LoadHtmlFromServerUseCase(
             resumeEditorRepository: gh<_i1007.ResumeEditorRepository>()));
+    gh.singleton<_i355.CheckTempleteRepository>(
+        () => _i615.CheckTempleteRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i102.AuthRepository>(
         () => _i857.AuthRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i96.ServerCallRepository>(() => _i34.ServerCallRepositoryImpl(

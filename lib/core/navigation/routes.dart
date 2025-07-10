@@ -2,6 +2,8 @@ import 'package:flutter_templete/core/di/di_setup.dart';
 import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart';
 import 'package:flutter_templete/feature/auth/presentation/login_screen.dart';
 import 'package:flutter_templete/feature/auth/presentation/sign_up_screen.dart';
+import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_screen.dart';
+import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_view_model.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_screen.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_test_screen.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_view_model.dart';
@@ -49,6 +51,19 @@ class AppRouter {
             child: ChangeNotifierProvider(
               create: (context) => getIt<AuthViewModel>(),
               child: SignUpScreen(),
+            ),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return child;
+            },
+          )
+      ),
+      GoRoute(
+          path: RouteNames.checkTemplete,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: ChangeNotifierProvider(
+              create: (context) => getIt<CheckTempleteViewModel>(),
+              child: CheckTempleteScreen(),
             ),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return child;

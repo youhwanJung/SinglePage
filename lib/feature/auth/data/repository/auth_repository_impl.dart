@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_templete/core/server/dio_config.dart';
 import 'package:flutter_templete/core/utils/result.dart';
 import 'package:flutter_templete/feature/auth/data/model/login_dto.dart';
+import 'package:flutter_templete/feature/auth/data/model/sign_up_dto.dart';
+import 'package:flutter_templete/feature/auth/data/model/user_dto.dart';
 import 'package:flutter_templete/feature/auth/domain/model/login.dart';
 import 'package:flutter_templete/feature/auth/domain/repository/auth_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -16,42 +18,68 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(DioConfig dioConfig) : _dio = dioConfig.dio;
 
   @override
-  Future<void> signUp({required String email, required String password}) async {
-
-  }
-
-  @override
-  Future<Result<Login>> login({required String email, required String password}) async {
+  Future<Result<SignUpDto?>> signUp({required UserDto userDto}) async {
     try {
       final response = await _dio.post(
-        '/auth/login',
-        data: {
-          "email": 'dh_joo@gmail.com',
-          "password": '1234567a!',
-        },
-
+          '/users',
+          data: userDto.toJson()
       );
-      print(response.message);
-      print(response.status);
-      print(response.successCode);
-      print(response.data?.id);
-      print(response.data?.accessToken);
-      print(response.data?.email);
-      print(response.data?.grantType);
-      print(response.data?.accessTokenExpiredAt);
-
-      final Result<Login> result = Result<Login>.fromJson(json as Map<String, dynamic>, (json) => LoginDto.fromJson(json).toDomain());
+      final result = Result<SignUpDto?>.fromJson(
+          response.data,
+              (json) => SignUpDto.fromJson(json)
+      );
       return result;
+    }on DioException catch (e) {
+      final data = e.response?.data;
+      final result = Result<SignUpDto?>.fromJson(data, (_) => null);
+      return result;
+    }catch (e){
+      final result = Result(
+          status: 'ERROR',
+          message: '$e',
+          code: -1,
+          data: null
+      );
+      return result;
+    }
+  }
+
+
+  /**
+   * Test Account
+   *  dh_joo@gmail.com
+   *  1234567a!
+   */
+  @override
+  Future<Result<LoginDto?>> login({required UserDto userDto}) async {
+    try {
+      final response = await _dio.post(
+          '/auth/login',
+          data: userDto.toJson()
+      );
+
+      /// 로그인 성공
+      final result = Result<LoginDto>.fromJson(
+          response.data,
+              (json) => LoginDto.fromJson(json)
+      );
+      return result;
+
+      /// 로그인 실패
     } on DioException catch (e) {
-      final Result<Login> result = Result<Login>.fromJson(e.response!.data, (_) => null);
+      final data = e.response?.data;
+      final result = Result<LoginDto?>.fromJson(data, (_) => null);
       return result;
+
     }catch (e) {
-      return Result(
-        status: 'ERROR',
-        message: '알 수 없는 오류가 발생했습니다',
-        successCode: -1,
-        data: null,
+      /// 알수 없는 오류
+      final result = Result(
+          status: 'ERROR',
+          message: '$e',
+          code: -1,
+          data: null
       );
+      return result;
     }
   }
 }

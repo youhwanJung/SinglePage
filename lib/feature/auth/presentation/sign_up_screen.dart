@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_templete/core/navigation/route_names.dart';
+import 'package:flutter_templete/core/utils/server_result_dialog.dart';
 import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart';
 import 'package:flutter_templete/widgets/custom_button.dart';
 import 'package:flutter_templete/widgets/custom_text_field.dart';
@@ -97,7 +98,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               CustomButton(
                 onPressed: () async {
-                  await vm.signUp();
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  final result = await vm.signUp();
+                  showSignUpResultDialog(context, result);
                 },
                 width: double.infinity,
                 height: 40,

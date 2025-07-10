@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_templete/core/utils/result.dart';
+import 'package:flutter_templete/feature/auth/domain/model/login.dart';
+import 'package:flutter_templete/feature/auth/domain/model/sign_up.dart';
+import 'package:flutter_templete/feature/auth/domain/model/user.dart';
 import 'package:flutter_templete/feature/auth/domain/use_case/login_use_case.dart';
 import 'package:flutter_templete/feature/auth/domain/use_case/sign_up_use_case.dart';
 import 'package:flutter_templete/feature/server_call/domain/use_case/server_post_example_use_case.dart';
@@ -61,39 +64,22 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signUp() async {
-    if (_signUpPassword != _signUpConfirmPassword) {
-      print('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-    try {
-      await _signUpUseCase.call(email: _signUpEmail, password: _signUpPassword);
-    } catch (e) {
-    }
+  Future<Result<SignUp?>> signUp() async {
+    User user = User(
+        email: _signUpEmail,
+        password: _signUpConfirmPassword
+    );
+    final result = await _signUpUseCase.call(user: user);
+    return result;
   }
 
-  Future<void> login() async {
-    try {
-      final result = await _loginUseCase.call(email: _loginEmail, password: _loginPassword);
-      if(result.successCode == 200) {
-        print(result.message);
-        print(result.status);
-        print(result.successCode);
-        print(result.data?.id);
-        print(result.data?.accessToken);
-        print(result.data?.email);
-        print(result.data?.grantType);
-        print(result.data?.accessTokenExpiredAt);
-      }else {
-        print(result.message);
-        print(result.status);
-        print(result.successCode);
-        print(result.data);
-      }
-
-    }catch (e) {
-
-    }
+  Future<Result<Login?>> login() async {
+    User user = User(
+        email: _loginEmail,
+        password: _loginPassword
+    );
+    final result = await _loginUseCase.call(user: user);
+    return result;
   }
 
   @override

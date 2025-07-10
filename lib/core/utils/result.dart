@@ -1,37 +1,38 @@
 class Result<T> {
   final String status;
   final String message;
-  final int successCode;
+  final int? code;
   final T? data;
 
   Result({
     required this.status,
     required this.message,
-    required this.successCode,
     required this.data,
+    this.code,
   });
 
+  /// Json -> Result<Dto>
   factory Result.fromJson(
       Map<String, dynamic> json,
-      T? Function(Map<String, dynamic>) fromJsonT,
+      T Function(Map<String, dynamic>) fromJsonT,
       ) {
     final dataJson = json['data'];
-    return Result(
+    final code = json['successCode'] ?? json['errorCode'];
+    return Result<T>(
       status: json['status'] as String,
       message: json['message'] as String,
-      successCode: json['successCode'] as int,
-      data: dataJson == null ? null : fromJsonT(dataJson as Map<String, dynamic>),
+      code: code is int ? code : int.tryParse(code.toString()),
+      data: dataJson == null ? null : fromJsonT(dataJson),
     );
   }
 
-  Map<String, dynamic> toJson(
-      Map<String, dynamic> Function(T) toJsonT,
-      ) {
-    return {
-      'status': status,
-      'message': message,
-      'successCode': successCode,
-      'data': data == null ? null : toJsonT(data!),
-    };
+  /// Result<Dto> -> Result<Domain>
+  Result<R> map<R>(R Function(T value) convert) {
+    return Result<R>(
+      status: status,
+      message: message,
+      code: code,
+      data: data == null ? null : convert(data as T),
+    );
   }
 }

@@ -5,7 +5,6 @@ import 'package:flutter_templete/feature/auth/data/model/user_dto.dart';
 import 'package:flutter_templete/feature/auth/domain/model/login.dart';
 
 
-abstract class AuthRepository {
-  Future<Result<SignUpDto?>> signUp({required UserDto userDto});
-  Future<Result<LoginDto?>> login({required UserDto userDto});
+abstract class CheckTempleteRepository {
+  Future<void> getTempleteList();
 }

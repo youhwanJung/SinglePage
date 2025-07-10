@@ -4,6 +4,7 @@ import 'package:flutter_templete/widgets/alert_dialog_widgets/custom_single_aler
 import 'package:flutter_templete/widgets/alert_dialog_widgets/custom_text_field_alert_dialog.dart';
 import 'package:flutter_templete/widgets/alert_dialog_widgets/custom_yes_or_no_alert_dialog.dart';
 import 'package:flutter_templete/widgets/new_dialog_widgets/permission_dialog.dart';
+import 'package:flutter_templete/widgets/new_dialog_widgets/server_error_dialog.dart';
 
 import '../core/color/app_colors.dart';
 import '../core/constants/app_strings.dart';
@@ -183,6 +184,24 @@ void showLoadingAlertDialog(BuildContext context) {
 //     },
 //   );
 // }
+
+Future<void> showServerDialog(
+    {required BuildContext context,
+      required title,
+      required content,
+      required confirmText,
+      VoidCallback? onConfirm}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => ServerResultDialog(
+      title: title,
+      content: content,
+      confirmText: confirmText,
+      onConfirm: onConfirm,
+    ),
+  );
+}
 
 
 Future<void> showPermissionDialog(

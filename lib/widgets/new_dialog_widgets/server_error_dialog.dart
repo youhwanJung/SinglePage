@@ -3,13 +3,13 @@ import 'package:flutter_templete/core/color/app_colors.dart';
 import 'package:flutter_templete/widgets/custom_button.dart';
 import 'package:flutter_templete/widgets/no_padding_icon_button.dart';
 
-class PermissionDialog extends StatelessWidget {
+class ServerResultDialog extends StatelessWidget {
   final String title;
   final String content;
   final String confirmText;
   final VoidCallback? onConfirm;
 
-  const PermissionDialog(
+  const ServerResultDialog(
       {super.key,
       required this.title,
       required this.content,
@@ -30,7 +30,7 @@ class PermissionDialog extends StatelessWidget {
               children: [
                 Container(
                   width: 60,
-                  height: 100,
+                  height: 80,
                   child: Center(
                     child: Icon(
                       Icons.error,
@@ -43,6 +43,7 @@ class PermissionDialog extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
+                        alignment: Alignment.centerLeft,
                         child: Text(
                           title,
                           style: TextStyle(
@@ -87,8 +88,7 @@ class PermissionDialog extends StatelessWidget {
                         color: AppColors.black,
                         fontWeight: FontWeight.w500),
                   ),
-                ),
-            )
+                ))
           ],
         ),
       ),
