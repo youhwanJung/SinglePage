@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_templete/core/navigation/route_names.dart';
 import 'package:flutter_templete/core/utils/result.dart';
 import 'package:flutter_templete/widgets/alert_dialog.dart';
+import 'package:go_router/go_router.dart';
 
 /// 로그인 다이어로그
 Future<void> showLoginResultDialog<T>(BuildContext context, Result<T> result) async {
@@ -21,7 +23,7 @@ Future<void> showLoginResultDialog<T>(BuildContext context, Result<T> result) as
       content: result.message,
       confirmText: "확인",
       onConfirm: () {
-        Navigator.of(context).pop();
+        context.go(RouteNames.navigation);
       },
     );
   }

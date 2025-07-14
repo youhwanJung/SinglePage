@@ -21,12 +21,16 @@ import 'package:flutter_templete/feature/auth/domain/use_case/sign_up_use_case.d
     as _i235;
 import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart'
     as _i5;
-import 'package:flutter_templete/feature/check_templete_screen/data/repository/check_templete_repository_impl.dart'
-    as _i615;
-import 'package:flutter_templete/feature/check_templete_screen/domain/repository/check_templete_repository.dart'
-    as _i355;
-import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_view_model.dart'
-    as _i532;
+import 'package:flutter_templete/feature/drawer_navigation/drawer_navigation_view_model.dart'
+    as _i623;
+import 'package:flutter_templete/feature/home/data/repository/home_repository_impl.dart'
+    as _i742;
+import 'package:flutter_templete/feature/home/domain/repository/home_repository.dart'
+    as _i511;
+import 'package:flutter_templete/feature/home/domain/use_case/get_templete_list_use_case.dart'
+    as _i838;
+import 'package:flutter_templete/feature/home/presentation/home_view_model.dart'
+    as _i871;
 import 'package:flutter_templete/feature/resume_editor/data/repository/resume_editor_repository_impl.dart'
     as _i967;
 import 'package:flutter_templete/feature/resume_editor/domain/repository/resume_editor_repository.dart'
@@ -68,11 +72,11 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final networkModule = _$NetworkModule();
-    gh.factory<_i532.CheckTempleteViewModel>(
-        () => _i532.CheckTempleteViewModel());
     gh.factory<_i662.SplashViewModel>(() => _i662.SplashViewModel());
     gh.factory<_i630.ResumeEditorViewModel>(
         () => _i630.ResumeEditorViewModel());
+    gh.factory<_i623.DrawerNavigationViewModel>(
+        () => _i623.DrawerNavigationViewModel());
     gh.singleton<_i361.Dio>(() => networkModule.dio());
     gh.singleton<_i1007.ResumeEditorRepository>(
         () => _i967.CaptureResultRepositoryImpl());
@@ -80,14 +84,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => networkModule.dioConfig(gh<_i361.Dio>()));
     gh.singleton<_i15.ServerCallRemoteDataSource>(
         () => _i847.ServerCallRemoteDataSourceImpl(gh<_i65.DioConfig>()));
+    gh.singleton<_i511.HomeRepository>(
+        () => _i742.HomeRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i957.LoadHtmlFromAssetsUseCase>(() =>
         _i957.LoadHtmlFromAssetsUseCase(
             resumeEditorRepository: gh<_i1007.ResumeEditorRepository>()));
     gh.singleton<_i570.LoadHtmlFromServerUseCase>(() =>
         _i570.LoadHtmlFromServerUseCase(
             resumeEditorRepository: gh<_i1007.ResumeEditorRepository>()));
-    gh.singleton<_i355.CheckTempleteRepository>(
-        () => _i615.CheckTempleteRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i102.AuthRepository>(
         () => _i857.AuthRepositoryImpl(gh<_i65.DioConfig>()));
     gh.singleton<_i96.ServerCallRepository>(() => _i34.ServerCallRepositoryImpl(
@@ -106,6 +110,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i235.SignUpUseCase(authRepository: gh<_i102.AuthRepository>()));
     gh.singleton<_i90.LoginUseCase>(
         () => _i90.LoginUseCase(authRepository: gh<_i102.AuthRepository>()));
+    gh.singleton<_i838.GetTempleteListUseCase>(() =>
+        _i838.GetTempleteListUseCase(
+            homeRepository: gh<_i511.HomeRepository>()));
+    gh.factory<_i871.HomeViewModel>(
+        () => _i871.HomeViewModel(gh<_i838.GetTempleteListUseCase>()));
     gh.factory<_i5.AuthViewModel>(() => _i5.AuthViewModel(
           gh<_i235.SignUpUseCase>(),
           gh<_i90.LoginUseCase>(),

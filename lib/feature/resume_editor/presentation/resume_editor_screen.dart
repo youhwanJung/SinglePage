@@ -5,6 +5,9 @@ import 'package:flutter_templete/core/color/app_colors.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_view_model.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/widget/content_section_widget.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/widget/side_bar_section_widget.dart';
+import 'package:flutter_templete/widgets/custom_app_bar.dart';
+import 'package:flutter_templete/widgets/no_padding_icon_button.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +37,21 @@ class _ResumeEditorScreenState extends State<ResumeEditorScreen> {
       },
       child: Scaffold(
         backgroundColor: AppColors.white,
+        appBar: CustomAppBar(
+            appBarHeight: 56,
+            customTitle: Text("Templete Editor"),
+            isMockUI: true,
+            customLeading: Builder(
+              builder: (context) {
+                return NoPaddingIconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      ZoomDrawer.of(context)?.toggle();
+                    },
+                    width: 30,
+                    height: 30);
+              },
+            )),
         body: Container(
           padding: EdgeInsets.all(12),
           color: Colors.white,

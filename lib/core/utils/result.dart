@@ -14,7 +14,7 @@ class Result<T> {
   /// Json -> Result<Dto>
   factory Result.fromJson(
       Map<String, dynamic> json,
-      T Function(Map<String, dynamic>) fromJsonT,
+      T Function(dynamic) fromJsonT,
       ) {
     final dataJson = json['data'];
     final code = json['successCode'] ?? json['errorCode'];
@@ -34,5 +34,21 @@ class Result<T> {
       code: code,
       data: data == null ? null : convert(data as T),
     );
+  }
+
+  /// Result<List<Dto>> -> Result<List<Domain>>
+  Result<List<R>> mapList<R>(R Function(dynamic value) convert) {
+    if (data is List) {
+      final List list = data as List;
+      final converted = list.map((e) => convert(e)).toList();
+      return Result<List<R>>(
+        status: status,
+        message: message,
+        code: code,
+        data: converted,
+      );
+    } else {
+      throw Exception('Result.mapList() called on non-list data');
+    }
   }
 }

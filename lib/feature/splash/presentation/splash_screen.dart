@@ -52,9 +52,9 @@ class _SplashScreenState extends State<SplashScreen> {
             Future.delayed(const Duration(seconds: 1),() async {
               final canAuthLogin = await SessionManager.canAutoLogin();
               if(canAuthLogin) {
-                context.go(RouteNames.login);
+                context.go(RouteNames.navigation);
               }else {
-                context.go(RouteNames.checkTemplete);
+                context.go(RouteNames.login);
               }
             });
           },

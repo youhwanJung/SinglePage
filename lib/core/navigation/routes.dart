@@ -2,8 +2,10 @@ import 'package:flutter_templete/core/di/di_setup.dart';
 import 'package:flutter_templete/feature/auth/presentation/auth_view_model.dart';
 import 'package:flutter_templete/feature/auth/presentation/login_screen.dart';
 import 'package:flutter_templete/feature/auth/presentation/sign_up_screen.dart';
-import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_screen.dart';
-import 'package:flutter_templete/feature/check_templete_screen/presentation/check_templete_view_model.dart';
+import 'package:flutter_templete/feature/drawer_navigation/drawer_navigation.dart';
+import 'package:flutter_templete/feature/drawer_navigation/drawer_navigation_view_model.dart';
+import 'package:flutter_templete/feature/home/presentation/home_screen.dart';
+import 'package:flutter_templete/feature/home/presentation/home_view_model.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_screen.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_test_screen.dart';
 import 'package:flutter_templete/feature/resume_editor/presentation/resume_editor_view_model.dart';
@@ -58,44 +60,57 @@ class AppRouter {
           )
       ),
       GoRoute(
-          path: RouteNames.checkTemplete,
+          path: RouteNames.navigation,
           pageBuilder: (context, state) => CustomTransitionPage(
             key: state.pageKey,
             child: ChangeNotifierProvider(
-              create: (context) => getIt<CheckTempleteViewModel>(),
-              child: CheckTempleteScreen(),
+              create: (context) => getIt<DrawerNavigationViewModel>(),
+              child: DrawerNavigation(),
             ),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return child;
             },
           )
       ),
-      GoRoute(
-        path: RouteNames.resumeEditor,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          key: state.pageKey,
-          child: ChangeNotifierProvider(
-            create: (context) => getIt<ResumeEditorViewModel>(),
-            child: ResumeEditorScreen(),
-          ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return child;
-            },
-        )
-      ),
-      GoRoute(
-          path: RouteNames.testResumeEditor,
-          pageBuilder: (context, state) => CustomTransitionPage(
-            key: state.pageKey,
-            child: ChangeNotifierProvider(
-              create: (context) => getIt<ResumeEditorViewModel>(),
-              child: ResumeEditorTestScreen(),
-            ),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-              return child;
-            },
-          )
-      )
+      // GoRoute(
+      //     path: RouteNames.home,
+      //     pageBuilder: (context, state) => CustomTransitionPage(
+      //       key: state.pageKey,
+      //       child: ChangeNotifierProvider(
+      //         create: (context) => getIt<HomeViewModel>(),
+      //         child: HomeScreen(),
+      //       ),
+      //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //         return child;
+      //       },
+      //     )
+      // ),
+      // GoRoute(
+      //   path: RouteNames.resumeEditor,
+      //   pageBuilder: (context, state) => CustomTransitionPage(
+      //     key: state.pageKey,
+      //     child: ChangeNotifierProvider(
+      //       create: (context) => getIt<ResumeEditorViewModel>(),
+      //       child: ResumeEditorScreen(),
+      //     ),
+      //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //       return child;
+      //       },
+      //   )
+      // ),
+      // GoRoute(
+      //     path: RouteNames.testResumeEditor,
+      //     pageBuilder: (context, state) => CustomTransitionPage(
+      //       key: state.pageKey,
+      //       child: ChangeNotifierProvider(
+      //         create: (context) => getIt<ResumeEditorViewModel>(),
+      //         child: ResumeEditorTestScreen(),
+      //       ),
+      //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //         return child;
+      //       },
+      //     )
+      // )
     ]
   );
 }

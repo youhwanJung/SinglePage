@@ -24,6 +24,9 @@ class SessionManager {
 
   static Future<String?> getToken() => _storage.read(key: SessionKey.accessToken.value);
   static Future<String?> getGrantType() => _storage.read(key: SessionKey.grantType.value);
+  static Future<String?> getId() => _storage.read(key: SessionKey.userId.value);
+  static Future<String?> getEmail() => _storage.read(key: SessionKey.email.value);
+
 
   static Future<bool> isExpired() async {
     final expiredAtStr = await _storage.read(key: SessionKey.accessTokenExpiredAt.value);
@@ -35,7 +38,7 @@ class SessionManager {
   static Future<bool> canAutoLogin() async {
     final token = await getToken();
     if (token == null) return false;
-    return !(await isExpired());
+    return (await isExpired());
   }
 
   static Future<void> clearSession() async {

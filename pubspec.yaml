@@ -32,6 +32,7 @@ dependencies:
   dotted_border: ^2.1.0
   flutter_secure_storage: ^9.2.4
   smooth_page_indicator: ^1.1.0 # 양옆 스와이프 라이브러리
+  flutter_zoom_drawer: ^3.2.0
 
 
 
@@ -42,11 +43,14 @@ dev_dependencies:
   injectable_generator: ^2.0.0 # 코드 생성을 위한 패키지
   build_runner: ^2.0.0 #코드 생성을 위한 빌드 러너
 
+
 flutter:
   uses-material-design: true
   assets: # 사진 추가
     - assets/images/logo.png
     - assets/icons/bold-clock.svg
+    - assets/images/bwink_edu_01_single_12.jpg
+    - assets/images/bwink_msc_09_single_05.jpg
 
 
     - assets/html/profile.html

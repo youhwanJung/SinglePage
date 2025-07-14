@@ -15,5 +15,6 @@ class RouteNames {
   static const String resumeEditor = '/resume_editor';
   static const String login = "/login";
   static const String signUp = '/sign_up';
-  static const String checkTemplete = '/check_templete';
+  static const String home = '/home';
+  static const String navigation = '/navigation';
 } 

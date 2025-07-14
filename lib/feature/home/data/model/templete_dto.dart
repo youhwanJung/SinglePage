@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_templete/feature/auth/domain/model/login.dart';
-import 'package:flutter_templete/feature/check_templete_screen/domain/model/templete.dart';
+import 'package:flutter_templete/feature/home/domain/model/templete.dart';
 
 class TempleteDto {
   final String id;
